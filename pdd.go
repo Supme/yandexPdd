@@ -19,18 +19,18 @@ type (
 		domain string
 	}
 
-	MaillistResponce struct{
+	MaillistResponse struct{
 		Maillist string `json:"maillist"`
 		Uid int `json:"uid"`
 		Cnt int `json:"cnt"`
 	}
 
-	PddImpResponce struct {
+	PddImpResponse struct {
 		Domain string `json:"domain"`
 		Uid int `json:"uid,omitempty"`
 		Maillist string `json:"maillist,omitempty"`
 		MaillistUid int `json:"maillist_uid,omitempty"`
-		Maillists []MaillistResponce `json:"maillists,omitempty"`
+		Maillists []MaillistResponse `json:"maillists,omitempty"`
 		Subscriber string `json:"subscriber,omitempty"`
 		SubscriberUid int `json:"subscriber_uid,omitempty"`
 		Subscribers []string `json:"subscribers,omitempty"`
@@ -47,7 +47,7 @@ func New(domain, token string) session {
 	return s
 }
 
-func (s *session) pddRequest(metod, url string, params map[string]string) PddImpResponce {
+func (s *session) pddRequest(metod, url string, params map[string]string) PddImpResponse {
 	client := &http.Client{}
 	req, err := http.NewRequest(metod, pddApiUrl + url, nil)
 	if err != nil {
@@ -72,7 +72,7 @@ func (s *session) pddRequest(metod, url string, params map[string]string) PddImp
 		log.Fatal(err)
 	}
 
-	var r PddImpResponce
+	var r PddImpResponse
 	err = json.Unmarshal(data, &r)
 	if err != nil {
 		log.Fatal(err)

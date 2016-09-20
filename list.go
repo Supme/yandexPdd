@@ -4,10 +4,10 @@ import (
 	"errors"
 )
 
-func (s *session) ListGet() ([]MaillistResponce,error) {
+func (s *session) ListGet() ([]MaillistResponse,error) {
 	j := s.pddRequest(GET, "/email/ml/list", map[string]string{})
 	if j.Success != "ok" {
-		return []MaillistResponce{}, errors.New(j.Error)
+		return []MaillistResponse{}, errors.New(j.Error)
 	}
 	return j.Maillists, nil
 }
